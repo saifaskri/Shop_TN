@@ -59,6 +59,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(mappedBy: 'OwnedBy', targetEntity: Products::class)]
     private $products;
 
+    #[ORM\OneToOne(targetEntity: UserShop::class, cascade: ['persist', 'remove'])]
+    private $UserShop;
+
     public function __construct()
     {
         $this->products = new ArrayCollection();
@@ -268,6 +271,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
                 $product->setOwnedBy(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getUserShop(): ?UserShop
+    {
+        return $this->UserShop;
+    }
+
+    public function setUserShop(?UserShop $UserShop): self
+    {
+        $this->UserShop = $UserShop;
 
         return $this;
     }
