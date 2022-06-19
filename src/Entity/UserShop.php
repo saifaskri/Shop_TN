@@ -13,7 +13,7 @@ class UserShop
     #[ORM\Column(type: 'integer')]
     private $id;
 
-    #[ORM\Column(type: 'string', length: 255)]
+    #[ORM\Column(type: 'string', length: 255, unique: true)]
     private $Shop_Name;
 
     #[ORM\Column(type: 'datetime')]
@@ -21,6 +21,9 @@ class UserShop
 
     #[ORM\Column(type: 'boolean')]
     private $status;
+
+    #[ORM\ManyToOne(targetEntity: User::class, cascade: ['persist', 'remove'])]
+    private $OwnedBy;
 
     public function getId(): ?int
     {
@@ -59,6 +62,18 @@ class UserShop
     public function setStatus(bool $status): self
     {
         $this->status = $status;
+
+        return $this;
+    }
+
+    public function getOwnedBy(): ?User
+    {
+        return $this->OwnedBy;
+    }
+
+    public function setOwnedBy(?User $OwnedBy): self
+    {
+        $this->OwnedBy = $OwnedBy;
 
         return $this;
     }

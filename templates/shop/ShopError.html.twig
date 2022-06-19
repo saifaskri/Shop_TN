@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Creat Shop{% endblock %}
+{% block stylesheets %}<link rel="stylesheet" href="{{asset('css/Shop.css')}}" >{% endblock %}
+{% block body %}
+<div class="container">
+    {% for message in app.flashes('addShop') %}
+    <div class="alert alert-danger text-center">
+        {{ message }}
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}

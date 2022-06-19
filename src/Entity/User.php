@@ -62,6 +62,12 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToOne(targetEntity: UserShop::class, cascade: ['persist', 'remove'])]
     private $UserShop;
 
+    #[ORM\Column(type: 'boolean', nullable: true)]
+    private $EmailVerified;
+
+    #[ORM\Column(type: 'string', length: 255, nullable: true)]
+    private $EmailMsgChecker;
+
     public function __construct()
     {
         $this->products = new ArrayCollection();
@@ -283,6 +289,30 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setUserShop(?UserShop $UserShop): self
     {
         $this->UserShop = $UserShop;
+
+        return $this;
+    }
+
+    public function isEmailVerified(): ?bool
+    {
+        return $this->EmailVerified;
+    }
+
+    public function setEmailVerified(?bool $EmailVerified): self
+    {
+        $this->EmailVerified = $EmailVerified;
+
+        return $this;
+    }
+
+    public function getEmailMsgChecker(): ?string
+    {
+        return $this->EmailMsgChecker;
+    }
+
+    public function setEmailMsgChecker(?string $EmailMsgChecker): self
+    {
+        $this->EmailMsgChecker = $EmailMsgChecker;
 
         return $this;
     }

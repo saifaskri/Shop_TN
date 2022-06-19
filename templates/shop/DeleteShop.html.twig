@@ -1,0 +1,21 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Delete Shop{% endblock %}
+{% block stylesheets %}<link rel="stylesheet" href="{{asset('css/Shop.css')}}" >{% endblock %}
+{% block body %}
+<div class="container">
+        {% for message in app.flashes('DeleteShop') %}
+                <div class="alert alert-danger text-center">
+                    {{ message }}
+                </div>
+        {% endfor %}
+        <h1 class="mb-5"> Delete Your Shop   </h1>
+        <form action="{{ url('app_shop_delete') }}" method="post" onsubmit="return confirm('Are you sure you want to delete Your Shop?');">
+            <div class="mb-3">
+                <input name="PlainPassword" placeholder="Confirm Your Password" type="password" class="form-control" id="">
+            </div>
+            <input type="hidden" name="tokenDeleteShop" value="{{ csrf_token('deleteShopName') }}"/>
+            <button class="btn btn-danger" type="submit">Delete</button>
+        </form>         
+</div>
+{% endblock %}

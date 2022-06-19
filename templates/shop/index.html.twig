@@ -1,0 +1,18 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Creat Shop{% endblock %}
+{% block stylesheets %}<link rel="stylesheet" href="{{asset('css/Shop.css')}}" >{% endblock %}
+{% block body %}
+<div class="container">
+    {% if MyShop.status %}
+        <h1> welcome in your Shop <span style="color:red;">{{app.user.firstname}} {{app.user.lastname}}</span></h1>
+        <p>-<a href="{{path('app_activation_shop')}}">desactivate Your Shop</a></p>
+        <p>-<a href="{{path('app_shop_delete')}}">Delete Your Shop</a></p>
+        <p>-<a href="">Sell Your Shop</a></p>
+        <p>-<a href="">Change Your Shop With An Other User</a></p>
+    {% else %}
+        <h4>Your Shop is <span style="color:red;"></span>Desactivated</h4>
+        <p>-<a href="{{path('app_activation_shop')}}">Activate Your Shop</a></p>
+    {% endif %}
+</div>
+{% endblock %}
