@@ -1,0 +1,28 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Sell Shop{% endblock %}
+{% block stylesheets %}<link rel="stylesheet" href="{{asset('css/Shop.css')}}" >{% endblock %}
+{% block body %}
+
+<div class="container">
+    {% for message in app.flashes('SellShop') %}
+            <div class="alert alert-danger text-center">
+                {{ message }}
+            </div>
+    {% endfor %}   
+    {% if MyShop.getSellingId is not null %}
+        <h1 class="mb-5">Cancel Your Selling</h1>
+        {% else %}
+        <h1 class="mb-5"> Sell Your Shop   </h1>    
+    {% endif %}
+     <form action="{{ url('app_sell_my_shop') }}" method="post" onsubmit="return confirm('Are you sure you want to Sell Your Shop?');">
+        <div class="mb-3">
+            <input name="PlainPassword" placeholder="Confirm Your Password" type="password" class="form-control" id="">
+        </div>
+        <input type="hidden" name="tokenSellShop" value="{{ csrf_token('SellShopName') }}"/>
+        <button class="btn btn-danger" type="submit">Confirm</button>
+    </form>    
+</div>
+
+
+{% endblock %}

@@ -4,15 +4,18 @@
 {% block stylesheets %}<link rel="stylesheet" href="{{asset('css/Shop.css')}}" >{% endblock %}
 {% block body %}
 <div class="container">
-    {% if MyShop.status %}
-        <h1> welcome in your Shop <span style="color:red;">{{app.user.firstname}} {{app.user.lastname}}</span></h1>
-        <p>-<a href="{{path('app_activation_shop')}}">desactivate Your Shop</a></p>
-        <p>-<a href="{{path('app_shop_delete')}}">Delete Your Shop</a></p>
-        <p>-<a href="">Sell Your Shop</a></p>
-        <p>-<a href="">Change Your Shop With An Other User</a></p>
+    {% if MyShop.getSellingId is not null %}
+        <h1>You Selled Your Shop with the Selling Id :</h1>
+        <p>{{MyShop.getSellingId}}</p>
+        <p>-<a href="{{path('app_sell_my_shop')}}">Cancel Selling</a></p>
+    {% elseif MyShop.status %}
+            <h1> welcome in your Shop <span style="color:red;">{{MyShop.ShopName}}</span></h1>
+            <p>-<a href="{{path('app_activation_shop')}}">desactivate Your Shop</a></p>
+            <p>-<a href="{{path('app_shop_delete')}}">Delete Your Shop</a></p>
+            <p>-<a href="{{path('app_sell_my_shop')}}">Sell Your Shop</a></p>
     {% else %}
-        <h4>Your Shop is <span style="color:red;"></span>Desactivated</h4>
-        <p>-<a href="{{path('app_activation_shop')}}">Activate Your Shop</a></p>
+            <h4>Your Shop is <span style="color:red;"></span>Desactivated</h4>
+            <p>-<a href="{{path('app_activation_shop')}}">Activate Your Shop</a></p>
     {% endif %}
 </div>
 {% endblock %}

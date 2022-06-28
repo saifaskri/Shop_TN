@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\User;
+use App\Repository\UserRepository ;
 use App\Entity\UserShop;
 use App\Form\AddNewShopType;
 use App\Form\DeleteShopUserType;
@@ -48,8 +49,6 @@ class ShopController extends AbstractController
         if($this->getUser()->getUserShop()){
             return  $this->redirectToRoute('app_home');
         }
-
-
         $userShop = new UserShop();
         $form = $this->createForm(AddNewShopType::class, $userShop);
         $form->handleRequest($request);
@@ -70,7 +69,7 @@ class ShopController extends AbstractController
                 //check for Spacial Caracter
                 if(preg_match('/[\'`^£$%&*()}{@#~?><>,|=_+¬-]/', $shopName)||preg_match('~[0-9]+~', $shopName)){
                     $this->addFlash('addShop', 'Shop Name Must contains Only Caracteres ');
-                    return $this->render('shop/index.html.twig', [
+                    return $this->render('shop/addShop.html.twig', [
                         'form' => $form->createView(),
                     ]);
                 }
@@ -78,20 +77,20 @@ class ShopController extends AbstractController
                 $deplicateName = $this->userShopRepository->findBy(array('Shop_Name' => $shopName));
                 if(!empty($deplicateName)){
                     $this->addFlash('addShop', 'This Shop Name Is Already Exist ');
-                    return $this->render('shop/index.html.twig', [
+                    return $this->render('shop/addShop.html.twig', [
                         'form' => $form->createView(),
                     ]);
                 }
                 //check for Length 
                 if(strlen($shopName)<3||strlen($shopName)>50){
                     $this->addFlash('addShop', 'Shop Name Must be More between 2-50 Caracters');
-                    return $this->render('shop/index.html.twig', [
+                    return $this->render('shop/addShop.html.twig', [
                         'form' => $form->createView(),
                     ]);
                 } 
             }else{
                 $this->addFlash('addShop', 'Please Choose A name For Your Shop');
-                return $this->render('shop/index.html.twig', [
+                return $this->render('shop/addShop.html.twig', [
                     'form' => $form->createView(),
                 ]);
             }
@@ -102,9 +101,47 @@ class ShopController extends AbstractController
 
             $this->entityManager->persist($userShop);
             $this->entityManager->flush();
-            return $this->redirectToRoute('app_home');
+            return $this->redirectToRoute('app_index_shop');  
         }
         return $this->render('shop/addShop.html.twig', [
+            'form' => $form->createView(),
+        ]);
+    }
+
+
+    #[Route('/add/code', name: 'Bought_Code')]
+    public function add_code (Request $request, UserRepository $UserRepository): Response
+    {
+        //if User Is Not lOGGED iN
+        if(!$this->getUser()){return $this->redirectToRoute('app_login');}
+        //check if User Has a Shop Already
+        if($this->getUser()->getUserShop()){return  $this->redirectToRoute('app_home');}
+        
+        $form = $this->createForm(AddNewShopType::class);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()){
+            // Check the Crsf Protection
+            if (!$this->isCsrfTokenValid('AddShopName',$request->get('tokenShopAdd'))) {$this->addFlash('addcodeShop', 'Can not Create because Of Secuirity Causes');}
+            $userShop = $this->userShopRepository->findOneByCode($form->get('Shop_Name')->getData());
+            if($userShop){
+                $oldUser = $UserRepository->findOneByUserShop($userShop->getId());
+                $oldUser->setUserShop(null);
+                $this->entityManager->flush();
+                $this->getUser()->setUserShop($userShop);
+                $userShop->setStatus($form->get('status')->getData());
+                $userShop->setOwnedBy($this->getUser());
+                $userShop->setSellingId(null);
+                $this->entityManager->flush();
+                return $this->redirectToRoute('app_index_shop');  
+            }else{
+                $this->addFlash('addcodeShop', 'Wrong Code !');
+            }
+            //Search In DataBase
+
+        }
+
+        return $this->render('shop/addShopCode.html.twig', [
             'form' => $form->createView(),
         ]);
     }
@@ -129,9 +166,6 @@ class ShopController extends AbstractController
                 return $this->redirectToRoute('app_index_shop');
             }else{
                 $this->addFlash('BadPwd', 'Password Incorrect');
-                return $this->render('shop/Aktivation.html.twig', [
-                    'form'=>$form->createView(),
-                ]);
             }  
         }
 
@@ -170,10 +204,36 @@ class ShopController extends AbstractController
         ]);
     }
 
-
-
-
-
-
     
+
+    #[Route('/sell', name: 'app_sell_my_shop')]
+    public function Sell(Request $request): Response
+    {
+        if(!$this->getUser() || !$this->getUser()->getUserShop()) return $this->redirectToRoute('app_login');
+
+        //If Form Is Submitted
+        if(count($request->request)!=0){
+            $submittedToken = $request->request->get('tokenSellShop');
+            if (! $this->isCsrfTokenValid('SellShopName', $submittedToken)) {
+                $this->addFlash('SellShop', 'Can not Delete Your Shop because Of Secuirity Causes');
+            }
+            $plainPwd = $request->request->get('PlainPassword');
+            //check Password
+            if($this->userPasswordHasher->isPasswordValid($this->getUser(),$plainPwd)){
+                $userShop =$this->userShopRepository->find($this->getUser()->getUserShop()->getId());
+                // Toggel the Selling if cancel or not
+                $selling_id = $userShop->getSellingId() ? null  : md5(uniqid().time()) ;
+                $userShop->setSellingId($selling_id);
+                $this->entityManager->flush();
+                //done
+                return $this->redirectToRoute('app_index_shop');  
+            }else{
+                $this->addFlash('SellShop', 'Password Incorrect');
+            }  
+        }
+
+        return $this->render('shop/SellShop.html.twig',[
+            'MyShop' =>$this->userShopRepository->find($this->getUser()->getUserShop()->getId()),
+        ]); 
+    }    
 }

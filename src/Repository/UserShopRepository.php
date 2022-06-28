@@ -38,6 +38,16 @@ class UserShopRepository extends ServiceEntityRepository
             $this->getEntityManager()->flush();
         }
     }
+    
+    public function findOneByCode($value): ?UserShop
+   {
+       return $this->createQueryBuilder('u')
+           ->andWhere('u.Selling_Id = :val')
+           ->setParameter('val', $value)
+           ->getQuery()
+           ->getOneOrNullResult()
+       ;
+   }
 
 //    /**
 //     * @return UserShop[] Returns an array of UserShop objects
@@ -54,13 +64,5 @@ class UserShopRepository extends ServiceEntityRepository
 //        ;
 //    }
 
-//    public function findOneBySomeField($value): ?UserShop
-//    {
-//        return $this->createQueryBuilder('u')
-//            ->andWhere('u.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->getQuery()
-//            ->getOneOrNullResult()
-//        ;
-//    }
+   
 }

@@ -4,15 +4,15 @@
 {% block stylesheets %}<link rel="stylesheet" href="{{asset('css/Shop.css')}}" >{% endblock %}
 {% block body %}
 <div class="container">
-    <h1>Creat Your Own Shop</h1>
-    {% for message in app.flashes('addShop') %}
+    <h1>Insert Your Code</h1>
+    {% for message in app.flashes('addcodeShop') %}
                 <div class="alert alert-danger text-center">
                     {{ message }}
                 </div>
     {% endfor %}
     {{form_start(form)}}
+        {{ form_row(form.Shop_Name, { 'label': 'Write Your Code'}) }}
         <input type="hidden" name="tokenShopAdd" value="{{ csrf_token('AddShopName') }}"/>
     {{form_end(form)}}
-    <p>-<a href="{{path('Bought_Code')}}">Do You Have A Code</a></p>
 </div>
 {% endblock %}

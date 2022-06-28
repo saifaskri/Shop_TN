@@ -25,6 +25,9 @@ class UserShop
     #[ORM\ManyToOne(targetEntity: User::class, cascade: ['persist', 'remove'])]
     private $OwnedBy;
 
+    #[ORM\Column(type: 'string', length: 255, nullable: true)]
+    private $Selling_Id;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -77,4 +80,18 @@ class UserShop
 
         return $this;
     }
+
+    public function getSellingId(): ?string
+    {
+        return $this->Selling_Id;
+    }
+
+    public function setSellingId(?string $Selling_Id): self
+    {
+        $this->Selling_Id = $Selling_Id;
+
+        return $this;
+    }
+
+  
 }
