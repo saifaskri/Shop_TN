@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\UserShopRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: UserShopRepository::class)]
@@ -27,6 +29,14 @@ class UserShop
 
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
     private $Selling_Id;
+
+    #[ORM\OneToMany(mappedBy: 'BelongsToShop', targetEntity: Products::class)]
+    private $products;
+
+    public function __construct()
+    {
+        $this->products = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -89,6 +99,36 @@ class UserShop
     public function setSellingId(?string $Selling_Id): self
     {
         $this->Selling_Id = $Selling_Id;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Products>
+     */
+    public function getProducts(): Collection
+    {
+        return $this->products;
+    }
+
+    public function addProduct(Products $product): self
+    {
+        if (!$this->products->contains($product)) {
+            $this->products[] = $product;
+            $product->setBelongsToShop($this);
+        }
+
+        return $this;
+    }
+
+    public function removeProduct(Products $product): self
+    {
+        if ($this->products->removeElement($product)) {
+            // set the owning side to null (unless already changed)
+            if ($product->getBelongsToShop() === $this) {
+                $product->setBelongsToShop(null);
+            }
+        }
 
         return $this;
     }

@@ -67,10 +67,11 @@ class RegistrationController extends AbstractController
                     );
                     $user->setUserProfilePhoto($newFilename);
                 } catch (FileException $e) {
-                    dd($e);
+                    echo ($e);
                     die;
                 }
             }
+
             $entityManager->persist($user);
             $entityManager->flush();
             // do anything else you need here, like send an email

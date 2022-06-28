@@ -35,10 +35,13 @@ class EasyAdminSubscriber implements EventSubscriberInterface
 
     public function UpdatedAt (BeforeEntityUpdatedEvent $event)
     {
+        // $entityInstance = $event->getEntityInstance();
+        // if (($entityInstance instanceof Products)){
+        //     $entityInstance->setUpdatedAt(new DateTime() );
+        // }
         $entityInstance = $event->getEntityInstance();
-        if (($entityInstance instanceof Products)){
-            $entityInstance->setUpdatedAt(new DateTime() );
-        }
+        $entityInstance->setUpdatedAt(new DateTime() );
+        
     }
 
     public function setStatus (BeforeEntityPersistedEvent $event)

@@ -43,6 +43,9 @@ class Products
     #[ORM\ManyToOne(targetEntity: User::class, inversedBy: 'products')]
     private $OwnedBy;
 
+    #[ORM\ManyToOne(targetEntity: UserShop::class, inversedBy: 'products')]
+    private $BelongsToShop;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -164,6 +167,18 @@ class Products
     public function setOwnedBy(?User $OwnedBy): self
     {
         $this->OwnedBy = $OwnedBy;
+
+        return $this;
+    }
+
+    public function getBelongsToShop(): ?UserShop
+    {
+        return $this->BelongsToShop;
+    }
+
+    public function setBelongsToShop(?UserShop $BelongsToShop): self
+    {
+        $this->BelongsToShop = $BelongsToShop;
 
         return $this;
     }

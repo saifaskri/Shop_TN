@@ -4,10 +4,11 @@
     "minimum-stability": "stable",
     "prefer-stable": true,
     "require": {
-        "ext-intl": "*",
         "php": ">=8.0.2",
         "ext-ctype": "*",
         "ext-iconv": "*",
+        "ext-intl": "*",
+        "cocur/slugify": "^4.1",
         "doctrine/annotations": "^1.0",
         "doctrine/doctrine-bundle": "^2.6",
         "doctrine/doctrine-migrations-bundle": "^3.2",

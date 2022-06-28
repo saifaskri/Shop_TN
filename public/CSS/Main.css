@@ -16,3 +16,14 @@
     left: 0;
     z-index: 10;
 }
+
+form label.required:after {
+    content: "* ";
+    color: red;
+    margin-left: 2px;
+}
+
+button a {
+    text-decoration: none;
+    color: white;
+}
