@@ -38,19 +38,18 @@ class AddProductType extends AbstractType
                     new File([
                         'maxSize' => '10240K',
                         'maxSizeMessage' => 'Size Too Large Max 10MB',
-                        'mimeTypes' => [
-                            'image/jpeg',
-                            'application/png',
-                            'application/x-png',
-                        ],
-                        'mimeTypesMessage' => 'Please upload An Image',
+                        // 'mimeTypes' => [
+                        //     'image/jpeg',
+                        //     'application/png',
+                        //     'application/x-png',
+                        // ],
+                        // 'mimeTypesMessage' => 'Please upload An Image',
                     ])
                 ],
             ])
             ->add('ProdPrice', MoneyType::class, [
                 'currency' => 'TND',              
                 'required'   => true,
-                'divisor' => 100,
             ])
             ->add('ProdDescription',TextareaType::class,[
                 'constraints' => [new Length(['min' =>10,'max' =>1000])],

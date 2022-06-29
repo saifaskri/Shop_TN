@@ -5,9 +5,24 @@
 {% block body %}
 <div class="container">
    <h1>Products</h1>
+
+   {% for message in app.flashes('ModShopsucces') %}
+    <div class="alert alert-success text-center">
+        {{ message }}
+    </div>
+    {% endfor %}
+    {% for message in app.flashes('deleteProdSucces') %}
+        <div class="alert alert-success text-center">
+            {{ message }}
+        </div>
+    {% endfor %}
+
     {% for Product in AllProducts %}
         {{dump(Product)}}
-    <button type="button" class="btn btn-warning"><a href="">Modify</a></button>
+    <button type="button" class="btn btn-warning"><a href="{{path('app_mod_products',{'slug':Product.ProdSlug,'id':Product.id})}}">Modify</a></button>
+    <button type="button" class="btn btn-danger"><a href="{{path('app_del_products',{'slug':Product.ProdSlug,'id':Product.id})}}">Delete</a></button>
     {% endfor %}
+
+
 </div>
 {% endblock %}

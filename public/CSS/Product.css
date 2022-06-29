@@ -1,0 +1,138 @@
+/* starting add item page */
+
+.btn-add-item{
+    width: 100px;
+}
+
+.card img{
+    max-height: 75%;
+    object-fit:fill;
+}
+
+.width-card{
+    max-width: 100%;
+}
+
+.mycard{
+    width: 100%;
+    height: 600px;
+}
+.mycard .Price-area{
+    max-width: 90%;
+    max-height: 45px;
+    white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+    bottom: 0px;
+    right: 0px;
+    background-color: rgba(202, 167, 167, 0.312);
+    position: absolute;
+    padding: 10px 5px;
+}
+
+.center-card{
+    display: flex;
+    justify-content: center;
+}
+
+.form-add-item{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+}
+
+
+
+.myimg{
+    min-height: 70%;
+}
+
+.view{
+    display: flex;
+    letter-spacing: 1,4;
+    font-family: cursive;
+    font-weight: bold;
+    color: black;
+    font-size: 20px;
+}
+
+.view  .active{
+    color: red !important;
+}
+
+.view a{
+    text-decoration: none;
+    color: black;
+    margin: 0 7px;
+}
+.card-body .mydesc{
+    white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+    max-height: 70px;
+    font-family: cursive;
+    font-size: 22px;
+  
+}
+.card-body .mytitel{
+    white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+    max-height: 35px;
+    font-size: 30px;
+    max-width: 90%;
+    letter-spacing: 3px;
+    font-weight: bold;
+}
+
+.mycardbody{
+    max-height: 185px;
+
+}
+
+.all_btn{
+    display: flex;
+    justify-content: flex-end;
+}
+.clear-btn{
+    margin-right: 20px;
+    width: 100px;
+}
+.up-file {
+    background-color: rgb(163, 163, 163);
+    position: relative;
+    height: 40px;
+    margin-bottom: 10px;
+}
+.up-file input[type="file"]{
+    opacity: 0;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 5;
+}
+.up-file .up_txt{
+    
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 11px;
+    color: white;
+}
+.up-file::after{
+    content: "Click";
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 11px;
+    color: black;
+    position: absolute;
+    right: 0;
+    background-color: #eeee;
+    height: 100%;
+    font-size: 25px;
+}
+
+/*end add item page */

@@ -3,52 +3,76 @@
 {% block title %}My Product{% endblock %}
 {% block stylesheets %}<link rel="stylesheet" href="{{asset('css/Product.css')}}" >{% endblock %}
 {% block body %}
-<div class="container">
-   <h1>Add Product</h1>
-{% for message in app.flashes('AddProduct') %}
-    <div class="alert alert-danger text-center">
-        {{ message }}
-    </div>
-{% endfor %}
-{% for message in app.flashes('addShopsucces') %}
-    <div class="alert alert-success text-center">
-        {{ message }}
-    </div>
-{% endfor %}
- {{ form_start(form) }}
-<input type="hidden" name="tokenAddProduct" value="{{ csrf_token('AddProduct')}}"/>
-            <div class="row ">
-                <div class="col-6">
-                    {{ form_row(form.ProdName,)}}
-                </div>
-                <div class="col-6">
-                    {{ form_row(form.category)}}
+
+    
+    
+
+
+<div class="container mb-5">
+    {% for message in app.flashes('AddProduct') %}
+        <div class="alert alert-danger text-center">
+            {{ message }}
+        </div>
+    {% endfor %}
+    {% for message in app.flashes('addShopsucces') %}
+        <div class="alert alert-success text-center">
+            {{ message }}
+        </div>
+    {% endfor %}
+
+    <div class="row">
+        <div class="col-lg-6 col-12">
+            <h1>Add Product</h1>
+            {{ form_start(form) }}
+            <input type="hidden" name="tokenAddProduct" value="{{ csrf_token('AddProduct')}}"/>
+                        <div class="row ">
+                            <div class="col-6">
+                                {{ form_row(form.ProdName,)}}
+                            </div>
+                            <div class="col-6">
+                                {{ form_row(form.category)}}
+                            </div>
+                        </div>
+                        <div class="row ">
+                            <div class="col-6">
+                                {{ form_row(form.ProdPrice)}}
+                            </div>
+                            <div class="col-6">
+                                {{ form_row(form.ProdIllustarion)}}
+                            </div>
+                        </div>
+                        <div class="row ">
+                            <div class="col-12">
+                                {{ form_row(form.ProdDescription)}}
+                            </div>
+                        </div>
+                        <div class="row ">
+                            <div class="col-12">
+                                {{ form_row(form.status)}}
+                            </div>
+                        </div>
+                        <div class="row ">
+                            <div class="col-12">
+                                {{ form_row(form.Add)}}
+                            </div>
+                        </div>
+            {{ form_end(form) }}
+        </div> 
+        <div class="col-lg-6 col-12">
+            <div class="card mycard width-card card-float-left  ">
+                <div class="Price-area" id="card_price"><span id="money"></span> TND </div>
+                <img id="img_display_add" src="{{ asset('uploads/ProdSingelImg/NoPrudctImg.jpg') }}"  class="card-img-top myimg" alt="Add Photo">
+                <div class="card-body mycardbody">
+                    <h5 class="card-title mytitel" titel="" id="card_name">Card title</h5>
+                    <p class="card-text mydesc" id="card-desc"> Here Stand Your Decreption</p>
+                    <br>
                 </div>
             </div>
-            <div class="row ">
-                <div class="col-6">
-                    {{ form_row(form.ProdPrice)}}
-                </div>
-                <div class="col-6">
-                    {{ form_row(form.ProdIllustarion)}}
-                </div>
-            </div>
-            <div class="row ">
-                <div class="col-12">
-                    {{ form_row(form.ProdDescription)}}
-                </div>
-            </div>
-            <div class="row ">
-                <div class="col-12">
-                    {{ form_row(form.status)}}
-                </div>
-            </div>
-             <div class="row ">
-                <div class="col-12">
-                    {{ form_row(form.Add)}}
-                </div>
-            </div>
-{{ form_end(form) }}
-        
+        </div> 
+    </div> 
+
 </div>
+
 {% endblock %}
+
+

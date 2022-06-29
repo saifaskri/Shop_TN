@@ -4,7 +4,7 @@
 {% block stylesheets %}<link rel="stylesheet" href="{{asset('css/Product.css')}}" >{% endblock %}
 {% block body %}
 <div class="container">
-   <h1>Add Product</h1>
+   <h1>Modify Product</h1>
 {% for message in app.flashes('ModProduct') %}
     <div class="alert alert-danger text-center">
         {{ message }}
@@ -40,7 +40,7 @@
             </div>
              <div class="row ">
                 <div class="col-12">
-                    {{ form_row(form.Add)}}
+                    {{ form_row(form.Add,{'label':'Update'})}}
                 </div>
             </div>
 {{ form_end(form) }}
