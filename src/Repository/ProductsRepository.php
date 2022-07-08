@@ -72,13 +72,18 @@ class ProductsRepository extends ServiceEntityRepository
             $query = $query
                 ->andWhere('
                 p.ProdName LIKE :search
+                OR p.id = :id
                 OR p.ProdDescription LIKE :search
                 OR p.ProdSlug LIKE :search
                 OR category.name  LIKE :search
                 OR SubCategory.name  LIKE :search
                 ')
                 // OR OwnedBy.FirstName LIKE :search OR OwnedBy.LastName LIKE :search
-                ->setParameter(':search', "%{$filterProdBack->SearchBar}%");
+                ->setParameter(':search', "%{$filterProdBack->SearchBar}%")
+                ->setParameter(':id',$filterProdBack->SearchBar)
+                
+                ;
+
         }
         if(!(empty($filterProdBack->ProdPriceMax))){
             $query = $query
@@ -109,10 +114,13 @@ class ProductsRepository extends ServiceEntityRepository
             ->join('p.BelongsToShop','BelongsToShop')
             ->join('p.category','category')
             ->join('p.SubCategory','SubCategory')
+            ->andWhere('p.status = true ')
+            ->andWhere('BelongsToShop.status = true ')
+
         ;
 
         if(!(empty($filterProdBack->SearchBar))){
-            $query = $query
+            $query = $query                
                 ->andWhere('
                 p.ProdName LIKE :search
                 OR p.ProdDescription LIKE :search
@@ -144,16 +152,19 @@ class ProductsRepository extends ServiceEntityRepository
 
 
     
-   public function FindBySlugAndId($slug,$id): ?Products
+   public function FindBySlugAndId($slug,$id,$state=true): ?Products
    {
        return $this->createQueryBuilder('p')
             ->andWhere('
                 p.id = :id
                 AND 
                 p.ProdSlug = :slug
+                AND
+                p.status = :state
             ')
-            ->setParameter(':slug',$slug )
+            ->setParameter(':slug',$slug)
             ->setParameter(':id', $id)
+            ->setParameter(':state',$state )
             ->getQuery()
             ->getOneOrNullResult()
        ;

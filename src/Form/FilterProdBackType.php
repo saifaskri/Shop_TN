@@ -27,7 +27,7 @@ class FilterProdBackType extends AbstractType
             'label' => 'Search',
             'required'=>false,
             'attr'=>[
-                'placeholder'=>'Name, Description, Category ...',
+                'placeholder'=>'ArticalNr, Name, Description, Category ...',
             ]
             ])
 
