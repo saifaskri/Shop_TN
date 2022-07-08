@@ -204,8 +204,6 @@ class ShopController extends AbstractController
         ]);
     }
 
-    
-
     #[Route('/sell', name: 'app_sell_my_shop')]
     public function Sell(Request $request): Response
     {
@@ -235,5 +233,7 @@ class ShopController extends AbstractController
         return $this->render('shop/SellShop.html.twig',[
             'MyShop' =>$this->userShopRepository->find($this->getUser()->getUserShop()->getId()),
         ]); 
-    }    
+    }
+    
+    
 }

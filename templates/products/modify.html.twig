@@ -5,19 +5,27 @@
 {% block body %}
 <div class="container">
    <h1>Modify Product</h1>
-{% for message in app.flashes('ModProduct') %}
-    <div class="alert alert-danger text-center">
-        {{ message }}
-    </div>
-{% endfor %}
- {{ form_start(form) }}
-<input type="hidden" name="tokenModProduct" value="{{ csrf_token('ModProduct')}}"/>
+    {% for message in app.flashes('ModProduct') %}
+        <div class="alert alert-danger text-center">
+            {{ message }}
+        </div>
+    {% endfor %}
+    {{ form_start(form) }}
+    <input type="hidden" name="tokenModProduct" value="{{ csrf_token('ModProduct')}}"/>
             <div class="row ">
-                <div class="col-6">
-                    {{ form_row(form.ProdName,)}}
+                <div class="col-4">
+                    {{ form_row(form.ProdName)}}
                 </div>
-                <div class="col-6">
+                <div class="col-4">
                     {{ form_row(form.category)}}
+                </div>
+                <div class="col-4">
+                    {{ form_row(form.SubCategory)}}
+                </div>
+            </div>
+            <div class="row ">
+                <div class="col-12">
+                    {{ form_row(form.ProdImgView)}}
                 </div>
             </div>
             <div class="row ">
@@ -43,7 +51,11 @@
                     {{ form_row(form.Add,{'label':'Update'})}}
                 </div>
             </div>
-{{ form_end(form) }}
-        
+    {{ form_end(form) }}
 </div>
+
+{% for SubCat in saif %}
+    <div class="SubCategoryJsonFilter d-none" data-subcategory="{{ SubCat.MyToString }}"></div>
+{% endfor %}
+
 {% endblock %}

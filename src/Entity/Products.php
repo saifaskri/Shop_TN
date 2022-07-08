@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Repository\ProductsRepository;
 use Doctrine\ORM\Mapping as ORM;
+use phpDocumentor\Reflection\Types\Nullable;
 
 #[ORM\Entity(repositoryClass: ProductsRepository::class)]
 class Products
@@ -19,7 +20,7 @@ class Products
     #[ORM\Column(type: 'string', length: 255)]
     private $ProdSlug;
 
-    #[ORM\Column(type: 'string', length: 255,nullable: true)]
+    #[ORM\Column(type: 'json')]
     private $ProdIllustarion;
 
     #[ORM\Column(type: 'float')]
@@ -45,6 +46,18 @@ class Products
 
     #[ORM\ManyToOne(targetEntity: UserShop::class, inversedBy: 'products')]
     private $BelongsToShop;
+
+    #[ORM\Column(type: 'string', length: 255, nullable: true)]
+    private $ProdImgView;
+
+    #[ORM\ManyToOne(targetEntity: SubCategories::class, inversedBy: 'products')]
+    private $SubCategory;
+
+
+    public function MyIllustratorToArray(): ?array
+    {
+        return json_decode($this->ProdIllustarion) ;
+    }
 
     public function getId(): ?int
     {
@@ -179,6 +192,30 @@ class Products
     public function setBelongsToShop(?UserShop $BelongsToShop): self
     {
         $this->BelongsToShop = $BelongsToShop;
+
+        return $this;
+    }
+
+    public function getProdImgView(): ?string
+    {
+        return $this->ProdImgView;
+    }
+
+    public function setProdImgView(?string $ProdImgView): self
+    {
+        $this->ProdImgView = $ProdImgView;
+
+        return $this;
+    }
+
+    public function getSubCategory(): ?SubCategories
+    {
+        return $this->SubCategory;
+    }
+
+    public function setSubCategory(?SubCategories $SubCategory): self
+    {
+        $this->SubCategory = $SubCategory;
 
         return $this;
     }

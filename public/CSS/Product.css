@@ -1,5 +1,16 @@
-/* starting add item page */
+.UnvisibaleProduct::after{
+content: "";
+position: absolute;
+top: 0;
+left: 0;
+width: 100%;
+height: 100%;
+background-color: rgb(0, 0, 0,0.5);
+z-index: -1;
+}
 
+
+/* starting add item page */
 .btn-add-item{
     width: 100px;
 }
@@ -21,8 +32,8 @@
     max-width: 90%;
     max-height: 45px;
     white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+    overflow: hidden;
+    text-overflow: ellipsis;
     bottom: 0px;
     right: 0px;
     background-color: rgba(202, 167, 167, 0.312);
@@ -56,7 +67,7 @@
     font-size: 20px;
 }
 
-.view  .active{
+.view .active{
     color: red !important;
 }
 
@@ -76,8 +87,8 @@
 }
 .card-body .mytitel{
     white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+    overflow: hidden;
+    text-overflow: ellipsis;
     max-height: 35px;
     font-size: 30px;
     max-width: 90%;
@@ -135,4 +146,178 @@
     font-size: 25px;
 }
 
+
 /*end add item page */
+
+/* Start Styling Filter */
+@media (min-width:992px) {
+    .FilterAdminSticky{
+        position: -webkit-sticky; /* Safari */
+        align-self: start;
+        position: sticky !important;
+        top: 40px;
+    }
+    
+}
+/* end Styling Filter */
+
+
+
+/* =================================================================== */
+/* Start View Prodcut */
+
+.description-pruduct-viewer span{
+cursor: pointer;
+text-decoration: underline;
+color: rgb(7, 134, 198);
+}
+
+.My-img-product-viewer{
+width: 100%;
+}
+
+.Product-view-cat-subcat{
+font-weight: 500;
+}
+
+.Product-view-Name{
+max-width: 100%;
+overflow: hidden;
+font-size: 35px;
+}
+
+.Product-view-price{
+font-size: 25px;
+}
+
+.My-Product-viewer-description{
+max-height: 100px;
+overflow: hidden;
+}
+
+@media (min-width:992px) {
+    .My-Product-viewer-description{
+        text-overflow: ellipsis;
+        display: -webkit-box;
+        -webkit-line-clamp:3;
+        -webkit-box-orient: vertical;
+    }
+}
+
+
+
+.MySlider{
+flex-wrap: nowrap;
+overflow: scroll;
+overflow-y: hidden;
+}
+
+/* deal with the scroller */
+.MySlider::-webkit-scrollbar {
+width: 20%;
+height: 10px;
+}
+
+.MySlider::-webkit-scrollbar-track {
+background-color: white;
+
+}
+
+.MySlider::-webkit-scrollbar-thumb {
+/* background: linear-gradient(to left ,red, orange);  */
+background: rgb(7, 134, 198);
+}
+/* end deal with the scroller */
+
+
+#MyImgVitrineProdView {
+    border-radius: 5px;
+    cursor: pointer;
+    transition: 0.3s;
+  }
+  
+  #MyImgVitrineProdView:hover {opacity: 0.7;}
+  
+  /* The Modal (background) */
+  .modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    padding-top: 100px; /* Location of the box */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.9); /* Black w/ opacity */
+  }
+  
+  /* Modal Content (image) */
+  .modal-content {
+    margin: auto;
+    display: block;
+    width: 80%;
+    max-width: 700px;
+  }
+  
+  /* Caption of Modal Image */
+  #caption {
+    margin: auto;
+    display: block;
+    width: 80%;
+    max-width: 700px;
+    text-align: center;
+    color: #ccc;
+    padding: 10px 0;
+    height: 150px;
+  }
+  
+  /* Add Animation */
+  .modal-content, #caption {  
+    -webkit-animation-name: zoom;
+    -webkit-animation-duration: 0.6s;
+    animation-name: zoom;
+    animation-duration: 0.6s;
+  }
+  
+  @-webkit-keyframes zoom {
+    from {-webkit-transform:scale(0)} 
+    to {-webkit-transform:scale(1)}
+  }
+  
+  @keyframes zoom {
+    from {transform:scale(0)} 
+    to {transform:scale(1)}
+  }
+  
+  /* The Close Button */
+  .close {
+    position: absolute;
+    top: 15px;
+    right: 35px;
+    color: #f1f1f1;
+    font-size: 40px;
+    font-weight: bold;
+    transition: 0.3s;
+  }
+  
+  .close:hover,
+  .close:focus {
+    color: #bbb;
+    text-decoration: none;
+    cursor: pointer;
+  }
+  
+  /* 100% Image Width on Smaller Screens */
+  @media only screen and (max-width: 700px){
+    .modal-content {
+      width: 100%;
+    }
+  }
+
+
+
+/* end View Prodcut */
+/* =================================================================== */
+

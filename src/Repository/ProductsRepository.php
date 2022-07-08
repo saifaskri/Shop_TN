@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\Products;
+use App\MyClasses\FilterProdBack;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -52,13 +53,112 @@ class ProductsRepository extends ServiceEntityRepository
        ;
    }
 
-//    public function findOneBySomeField($value): ?Products
-//    {
-//        return $this->createQueryBuilder('p')
-//            ->andWhere('p.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->getQuery()
-//            ->getOneOrNullResult()
-//        ;
-//    }
+    /**
+     * @return Products[] Returns an array of Products objects
+     */
+    public function findByFiltersAdmin(FilterProdBack $filterProdBack,$UserShop): array
+    {
+        $query = $this
+            ->createQueryBuilder('p')
+            ->join('p.OwnedBy','OwnedBy')
+            ->join('p.BelongsToShop','BelongsToShop')
+            ->join('p.category','category')
+            ->join('p.SubCategory','SubCategory')
+            ->andWhere('BelongsToShop = :UserShop ')
+            ->setParameter(':UserShop', $UserShop);
+        ;
+
+        if(!(empty($filterProdBack->SearchBar))){
+            $query = $query
+                ->andWhere('
+                p.ProdName LIKE :search
+                OR p.ProdDescription LIKE :search
+                OR p.ProdSlug LIKE :search
+                OR category.name  LIKE :search
+                OR SubCategory.name  LIKE :search
+                ')
+                // OR OwnedBy.FirstName LIKE :search OR OwnedBy.LastName LIKE :search
+                ->setParameter(':search', "%{$filterProdBack->SearchBar}%");
+        }
+        if(!(empty($filterProdBack->ProdPriceMax))){
+            $query = $query
+                ->andWhere('p.ProdPrice <= :Maxprice')
+                ->setParameter(':Maxprice', $filterProdBack->ProdPriceMax);
+        }
+        if(!(empty($filterProdBack->ProdCat))){
+            $query = $query
+                ->andWhere('category.id IN (:Categorys)')
+                ->setParameter(':Categorys', $filterProdBack->ProdCat);
+        }
+        if(!(empty($filterProdBack->ProdSubCat))){
+            $query = $query
+                ->andWhere('SubCategory.id IN (:SubCategory)')
+                ->setParameter(':SubCategory', $filterProdBack->ProdSubCat);
+        }
+        return $query->getQuery()->getResult();
+    }
+
+    /**
+     * @return Products[] Returns an array of Products objects
+     */
+    public function findByFiltersHome(FilterProdBack $filterProdBack = null): array
+    {
+        $query = $this
+            ->createQueryBuilder('p')
+            ->join('p.OwnedBy','OwnedBy')
+            ->join('p.BelongsToShop','BelongsToShop')
+            ->join('p.category','category')
+            ->join('p.SubCategory','SubCategory')
+        ;
+
+        if(!(empty($filterProdBack->SearchBar))){
+            $query = $query
+                ->andWhere('
+                p.ProdName LIKE :search
+                OR p.ProdDescription LIKE :search
+                OR p.ProdSlug LIKE :search
+                OR category.name  LIKE :search
+                OR SubCategory.name  LIKE :search
+                OR BelongsToShop.Shop_Name LIKE :search
+                OR OwnedBy.FirstName LIKE :search OR OwnedBy.LastName LIKE :search
+                ')
+                ->setParameter(':search', "%{$filterProdBack->SearchBar}%");
+        }
+        if(!(empty($filterProdBack->ProdPriceMax))){
+            $query = $query
+                ->andWhere('p.ProdPrice <= :Maxprice')
+                ->setParameter(':Maxprice', $filterProdBack->ProdPriceMax);
+        }
+        if(!(empty($filterProdBack->ProdCat))){
+            $query = $query
+                ->andWhere('category.id IN (:Categorys)')
+                ->setParameter(':Categorys', $filterProdBack->ProdCat);
+        }
+        if(!(empty($filterProdBack->ProdSubCat))){
+            $query = $query
+                ->andWhere('SubCategory.id IN (:SubCategory)')
+                ->setParameter(':SubCategory', $filterProdBack->ProdSubCat);
+        }
+        return $query->getQuery()->getResult();
+    }
+
+
+    
+   public function FindBySlugAndId($slug,$id): ?Products
+   {
+       return $this->createQueryBuilder('p')
+            ->andWhere('
+                p.id = :id
+                AND 
+                p.ProdSlug = :slug
+            ')
+            ->setParameter(':slug',$slug )
+            ->setParameter(':id', $id)
+            ->getQuery()
+            ->getOneOrNullResult()
+       ;
+   }
+
+
+
 }

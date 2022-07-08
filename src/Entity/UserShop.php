@@ -38,6 +38,11 @@ class UserShop
         $this->products = new ArrayCollection();
     }
 
+    public function __toString()
+    {
+        return $this->Shop_Name;
+    }
+
     public function getId(): ?int
     {
         return $this->id;

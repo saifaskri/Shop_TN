@@ -23,6 +23,12 @@ form label.required:after {
     margin-left: 2px;
 }
 
+[for~="add_product_category"]:after {
+    content: "* ";
+    color: red;
+    margin-left: 2px;
+}
+
 button a {
     text-decoration: none;
     color: white;

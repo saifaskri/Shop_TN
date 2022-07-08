@@ -15,7 +15,7 @@ class Categorys
     #[ORM\Column(type: 'integer')]
     private $id;
 
-    #[ORM\Column(type: 'string', length: 255)]
+    #[ORM\Column(type: 'string', length: 255, unique: true)]
     private $name;
 
     #[ORM\Column(type: 'boolean')]
@@ -24,9 +24,16 @@ class Categorys
     #[ORM\OneToMany(mappedBy: 'category', targetEntity: Products::class)]
     private $products;
 
+    #[ORM\OneToMany(mappedBy: 'MainCategory', targetEntity: SubCategories::class)]
+    private $subCategories;
+
+    
+
+   
     public function __construct()
     {
         $this->products = new ArrayCollection();
+        $this->subCategories = new ArrayCollection();
     }
 
     public function __toString()
@@ -92,4 +99,37 @@ class Categorys
 
         return $this;
     }
+
+    /**
+     * @return Collection<int, SubCategories>
+     */
+    public function getSubCategories(): Collection
+    {
+        return $this->subCategories;
+    }
+
+    public function addSubCategory(SubCategories $subCategory): self
+    {
+        if (!$this->subCategories->contains($subCategory)) {
+            $this->subCategories[] = $subCategory;
+            $subCategory->setMainCategory($this);
+        }
+
+        return $this;
+    }
+
+    public function removeSubCategory(SubCategories $subCategory): self
+    {
+        if ($this->subCategories->removeElement($subCategory)) {
+            // set the owning side to null (unless already changed)
+            if ($subCategory->getMainCategory() === $this) {
+                $subCategory->setMainCategory(null);
+            }
+        }
+
+        return $this;
+    }
+
+
+    
 }

@@ -1,7 +1,28 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello HomeController!{% endblock %}
 
+{% block title %}Home{% endblock %}
+{% block stylesheets %}<link rel="stylesheet" href="{{asset('css/Product.css')}}" >{% endblock %}
 {% block body %}
-{{dump(app.user)}}
+<div class="container">
+   <h1>Home Products</h1>
+    <div class="row">
+        <div class="col-lg-3 FilterAdminSticky">
+            {{form(FilterForm)}}
+        </div>
+        <div class="col-lg-9">
+            {% for Product in AllProducts %}
+                <div class="mb-2 position-relative {{ Product.status ? '' :'UnvisibaleProduct'}}">
+                    {{dump(Product)}}
+                    <img style="width: 100px" src="{{ asset('uploads/ProdSingelImg/' ~ Product.ProdImgView) }}" >
+                    <button type="button" class="btn btn-warning"><a href="{{path('app_view_product',{'slug':Product.ProdSlug,'id':Product.id})}}">view</a></button>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% for SubCat in saif %}
+    <div class="SubCategoryJsonFilter d-none" data-subcategory="{{ SubCat.MyToString }}"></div>
+{% endfor %}
+
 {% endblock %}

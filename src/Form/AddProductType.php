@@ -4,8 +4,10 @@ namespace App\Form;
 
 use App\Entity\Categorys;
 use App\Entity\Products;
+use App\Entity\SubCategories;
 use App\Repository\CategorysRepository;
-use EasyCorp\Bundle\EasyAdminBundle\Form\Type\SlugType;
+use App\Repository\SubCategoriesRepository;
+use EasyCorp\Bundle\EasyAdminBundle\Filter\BooleanFilter;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
@@ -17,10 +19,12 @@ use Symfony\Component\Form\Extension\Core\Type\MoneyType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Validator\Constraints\All;
 use Symfony\Component\Validator\Constraints\File;
 
 class AddProductType extends AbstractType
 {
+    public $saif;
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
@@ -29,24 +33,53 @@ class AddProductType extends AbstractType
                 'required'   => true,
             ])
             ->add('ProdIllustarion', FileType::class, [
-                'label' => 'Profile Photo',
+                'label' => 'Secondry Image',
                 'mapped' => false,
                 'required' => false,
+                'multiple' => true,
                 // unmapped fields can't define their validation using annotations
                 // in the associated entity, so you can use the PHP constraint classes
                 'constraints' => [
-                    new File([
-                        'maxSize' => '10240K',
-                        'maxSizeMessage' => 'Size Too Large Max 10MB',
-                        // 'mimeTypes' => [
-                        //     'image/jpeg',
-                        //     'application/png',
-                        //     'application/x-png',
-                        // ],
-                        // 'mimeTypesMessage' => 'Please upload An Image',
-                    ])
-                ],
+                    new All([
+                      'constraints' => [
+                        new File([
+                          'maxSize' => '10240k',
+                          'maxSizeMessage' => 'Size Too Large Max 10MB',
+                          'mimeTypesMessage' => 'Please upload An Image',
+                            // 'mimeTypes' => [
+                            //      'image/jpeg',
+                            //      'application/png',
+                            //      'application/x-png',
+                            // ],
+                            // 'mimeTypesMessage' => 'Please upload An Image',         
+                        ]),
+                      ],
+                    ]),
+                  ]
             ])
+
+            ->add('ProdImgView', FileType::class, [
+                'label' => 'Main Image',
+                'mapped' => false,
+                'required' => true,
+                'multiple' => false,
+                // unmapped fields can't define their validation using annotations
+                // in the associated entity, so you can use the PHP constraint classes                    
+                      'constraints' => [
+                        new File([
+                          'maxSize' => '10240k',
+                          'maxSizeMessage' => 'Size Too Large Max 10MB',
+                          'mimeTypesMessage' => 'Please upload An Image',
+                            // 'mimeTypes' => [
+                            //      'image/jpeg',
+                            //      'application/png',
+                            //      'application/x-png',
+                            // ],
+                            // 'mimeTypesMessage' => 'Please upload An Image',         
+                        ]),
+                      ],
+            ])
+                
             ->add('ProdPrice', MoneyType::class, [
                 'currency' => 'TND',              
                 'required'   => true,
@@ -60,6 +93,7 @@ class AddProductType extends AbstractType
                 'required'=>false
             ])
             ->add('category',EntityType::class,[
+                'label'=>'Category',
                 'class' => Categorys::class,
                 'required'=>true,
                 'query_builder'=>function(CategorysRepository $er){
@@ -68,6 +102,19 @@ class AddProductType extends AbstractType
                         ->andWhere('c.Status = true');
                     }
             ])
+            ->add('SubCategory',EntityType::class,[
+                'label'=>'SubCategory',
+                'class' => SubCategories::class,
+                'required'=>false,
+                'query_builder'=>function(SubCategoriesRepository $er){
+                    return $query = $er->createQueryBuilder('s')
+                        ->select('s')
+                        ->join('s.MainCategory','MainCategory')
+                        ->andWhere('s.Status = true ')
+                        ;
+                    }
+            ])
+
             ->add('Add',SubmitType::class,[  
             ])
         ;
