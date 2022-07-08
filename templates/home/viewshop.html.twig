@@ -1,0 +1,10 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Delete Shop{% endblock %}
+{% block stylesheets %}<link rel="stylesheet" href="{{asset('css/Shop.css')}}" >{% endblock %}
+{% block body %}
+<div class="container">
+        <h1 class="mb-5">View Shop</h1>   
+        {{dump(shop)}}   
+</div>
+{% endblock %}

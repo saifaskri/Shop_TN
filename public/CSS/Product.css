@@ -1,0 +1,323 @@
+.UnvisibaleProduct::after{
+content: "";
+position: absolute;
+top: 0;
+left: 0;
+width: 100%;
+height: 100%;
+background-color: rgb(0, 0, 0,0.5);
+z-index: -1;
+}
+
+
+/* starting add item page */
+.btn-add-item{
+    width: 100px;
+}
+
+.card img{
+    max-height: 75%;
+    object-fit:fill;
+}
+
+.width-card{
+    max-width: 100%;
+}
+
+.mycard{
+    width: 100%;
+    height: 600px;
+}
+.mycard .Price-area{
+    max-width: 90%;
+    max-height: 45px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    bottom: 0px;
+    right: 0px;
+    background-color: rgba(202, 167, 167, 0.312);
+    position: absolute;
+    padding: 10px 5px;
+}
+
+.center-card{
+    display: flex;
+    justify-content: center;
+}
+
+.form-add-item{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+}
+
+
+
+.myimg{
+    min-height: 70%;
+}
+
+.view{
+    display: flex;
+    letter-spacing: 1,4;
+    font-family: cursive;
+    font-weight: bold;
+    color: black;
+    font-size: 20px;
+}
+
+.view .active{
+    color: red !important;
+}
+
+.view a{
+    text-decoration: none;
+    color: black;
+    margin: 0 7px;
+}
+.card-body .mydesc{
+    white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+    max-height: 70px;
+    font-family: cursive;
+    font-size: 22px;
+  
+}
+.card-body .mytitel{
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-height: 35px;
+    font-size: 30px;
+    max-width: 90%;
+    letter-spacing: 3px;
+    font-weight: bold;
+}
+
+.mycardbody{
+    max-height: 185px;
+
+}
+
+.all_btn{
+    display: flex;
+    justify-content: flex-end;
+}
+.clear-btn{
+    margin-right: 20px;
+    width: 100px;
+}
+.up-file {
+    background-color: rgb(163, 163, 163);
+    position: relative;
+    height: 40px;
+    margin-bottom: 10px;
+}
+.up-file input[type="file"]{
+    opacity: 0;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 5;
+}
+.up-file .up_txt{
+    
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 11px;
+    color: white;
+}
+.up-file::after{
+    content: "Click";
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 11px;
+    color: black;
+    position: absolute;
+    right: 0;
+    background-color: #eeee;
+    height: 100%;
+    font-size: 25px;
+}
+
+
+/*end add item page */
+
+/* Start Styling Filter */
+@media (min-width:992px) {
+    .FilterAdminSticky{
+        position: -webkit-sticky; /* Safari */
+        align-self: start;
+        position: sticky !important;
+        top: 40px;
+    }
+    
+}
+/* end Styling Filter */
+
+
+
+/* =================================================================== */
+/* Start View Prodcut */
+
+.description-pruduct-viewer span{
+cursor: pointer;
+text-decoration: underline;
+color: rgb(7, 134, 198);
+}
+
+.My-img-product-viewer{
+width: 100%;
+}
+
+.Product-view-cat-subcat{
+font-weight: 500;
+}
+
+.Product-view-Name{
+max-width: 100%;
+overflow: hidden;
+font-size: 35px;
+}
+
+.Product-view-price{
+font-size: 25px;
+}
+
+.My-Product-viewer-description{
+max-height: 100px;
+overflow: hidden;
+}
+
+@media (min-width:992px) {
+    .My-Product-viewer-description{
+        text-overflow: ellipsis;
+        display: -webkit-box;
+        -webkit-line-clamp:3;
+        -webkit-box-orient: vertical;
+    }
+}
+
+
+
+.MySlider{
+flex-wrap: nowrap;
+overflow: scroll;
+overflow-y: hidden;
+}
+
+/* deal with the scroller */
+.MySlider::-webkit-scrollbar {
+width: 20%;
+height: 10px;
+}
+
+.MySlider::-webkit-scrollbar-track {
+background-color: white;
+
+}
+
+.MySlider::-webkit-scrollbar-thumb {
+/* background: linear-gradient(to left ,red, orange);  */
+background: rgb(7, 134, 198);
+}
+/* end deal with the scroller */
+
+
+#MyImgVitrineProdView {
+    border-radius: 5px;
+    cursor: pointer;
+    transition: 0.3s;
+  }
+  
+  #MyImgVitrineProdView:hover {opacity: 0.7;}
+  
+  /* The Modal (background) */
+  .modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    padding-top: 100px; /* Location of the box */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.9); /* Black w/ opacity */
+  }
+  
+  /* Modal Content (image) */
+  .modal-content {
+    margin: auto;
+    display: block;
+    width: 80%;
+    max-width: 700px;
+  }
+  
+  /* Caption of Modal Image */
+  #caption {
+    margin: auto;
+    display: block;
+    width: 80%;
+    max-width: 700px;
+    text-align: center;
+    color: #ccc;
+    padding: 10px 0;
+    height: 150px;
+  }
+  
+  /* Add Animation */
+  .modal-content, #caption {  
+    -webkit-animation-name: zoom;
+    -webkit-animation-duration: 0.6s;
+    animation-name: zoom;
+    animation-duration: 0.6s;
+  }
+  
+  @-webkit-keyframes zoom {
+    from {-webkit-transform:scale(0)} 
+    to {-webkit-transform:scale(1)}
+  }
+  
+  @keyframes zoom {
+    from {transform:scale(0)} 
+    to {transform:scale(1)}
+  }
+  
+  /* The Close Button */
+  .close {
+    position: absolute;
+    top: 15px;
+    right: 35px;
+    color: #f1f1f1;
+    font-size: 40px;
+    font-weight: bold;
+    transition: 0.3s;
+  }
+  
+  .close:hover,
+  .close:focus {
+    color: #bbb;
+    text-decoration: none;
+    cursor: pointer;
+  }
+  
+  /* 100% Image Width on Smaller Screens */
+  @media only screen and (max-width: 700px){
+    .modal-content {
+      width: 100%;
+    }
+  }
+
+
+
+/* end View Prodcut */
+/* =================================================================== */
+

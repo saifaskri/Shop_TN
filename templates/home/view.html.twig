@@ -1,0 +1,111 @@
+{% extends 'base.html.twig' %}
+
+
+{% block title %}Home{% endblock %}
+{% block stylesheets %}<link rel="stylesheet" href="{{asset('css/Product.css')}}" >{% endblock %}
+{% block body %}
+<div class="container">
+    <div class="row mt-5 mb-5">
+        <div class=" col-lg-4 col-md-6 ">
+            <div class="row flex-column">
+                <div class="col-12 mb-3">
+                    <div class="ImgVitrineProdView">
+                        <img id="MyImgVitrineProdView" style="width:100%;height:320px;" class="My-img-product-viewer img-fluid" src="{{ asset('uploads/ProdSingelImg/' ~ Product.ProdImgView) }}" >
+                    </div>
+                </div>
+                <div class="col-12">
+                    <div class="row MySlider">
+                            <div class="col-4">
+                                <img class="img-fluid SliderImgs" style="width:100%;height:100px;cursor:pointer;" src="{{ asset('uploads/ProdSingelImg/' ~ Product.ProdImgView) }}" >
+                            </div>
+                        {% for ProdImgInSlider in Product.MyIllustratorToArray %}
+                            <div class="col-4">
+                                <img class="img-fluid SliderImgs" style="width:100%;height:100px;cursor:pointer;" src="{{ asset('uploads/ProdSingelImg/' ~ ProdImgInSlider) }}" >
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div class="col-lg-8 col-md-6 my-auto p-4">
+            <h4 class="mb-3 Product-view-Name">{{Product.ProdName}}</h4>
+            <h5 class="mb-3"><a href="{{path('view-shop-by-name',{'ShopName':Product.BelongsToShop})}}">{{Product.BelongsToShop}}</a></h5>
+            <div class="CatViewerInfo Product-view-cat-subcat mb-3">
+                <span>{{Product.category}}</span>
+                <span> > </span>
+                <span>{{Product.SubCategory}}</span>
+            </div>
+            <div class="priceProductViewer mb-3">
+                <span class="product-page-price Product-view-price">{{(Product.ProdPrice)|number_format(2,',','.')}} <span>TND</span></span>
+            </div>
+            <div class="mb-3 d-flex flex-column description-pruduct-viewer">
+                <p id="MyDescProdViewer" class="m-0 My-Product-viewer-description">{{Product.ProdDescription}}</p>
+                <span id="MyReadMoreDesc" class="align-self-end">Read More...</span>
+            </div>
+            <div class="d-grid gap-2">
+                <div class="row">
+                    <div class="col-5 justify-content-end">
+                        <button class="btn btn-sm btn-info" type="button">Add To Card</button>
+                    </div>
+                    <div class="col-7"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- The Modal -->
+<div id="myModal" class="modal">
+  <span class="close">&times;</span>
+  <img class="modal-content"id="img01">
+  <div id="caption"></div>
+</div>
+
+{% endblock %}
+
+{% block javascripts %}
+    <script>  
+    $(document).ready(function (e) {
+
+        $('#MyReadMoreDesc').on('click', function(e) {
+            $('#MyDescProdViewer').fadeOut(function () {
+                $('#MyDescProdViewer').toggleClass("My-Product-viewer-description").fadeIn();
+            })
+            $(this).fadeOut(function () {
+                $(this).text(($(this).text() == 'Read More...') ? 'Read Less...' : 'Read More...').fadeIn();
+            })
+        });
+
+        $(function() {    
+            $(".SliderImgs").each(function() {
+                $(this).click(function() {
+                    $(".ImgVitrineProdView img").attr('src',this.src); 
+                });
+            });  
+        });
+    });  
+    
+    // Get the modal
+    var modal = document.getElementById("myModal");
+
+    // Get the image and insert it inside the modal - use its "alt" text as a caption
+    var img = document.getElementById("MyImgVitrineProdView");
+    var modalImg = document.getElementById("img01");
+    var captionText = document.getElementById("caption");
+
+    img.onclick = function(){
+    modal.style.display = "block";
+    modalImg.src = this.src;
+    captionText.innerHTML = this.alt;
+    }
+
+    // Get the <span> element that closes the modal
+    var span = document.getElementsByClassName("close")[0];
+
+    // When the user clicks on <span> (x), close the modal
+    span.onclick = function() { 
+    modal.style.display = "none";
+    }
+
+</script>
+{% endblock %}      

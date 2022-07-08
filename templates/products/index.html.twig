@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}My Product{% endblock %}
+{% block stylesheets %}<link rel="stylesheet" href="{{asset('css/Product.css')}}" >{% endblock %}
+{% block body %}
+<div class="container">
+   <h1>Products</h1>
+
+   {% for message in app.flashes('ModShopsucces') %}
+    <div class="alert alert-success text-center">
+        {{ message }}
+    </div>
+    {% endfor %}
+    {% for message in app.flashes('deleteProdSucces') %}
+        <div class="alert alert-success text-center">
+            {{ message }}
+        </div>
+    {% endfor %}
+<div class="row">
+    <div class="col-lg-3 FilterAdminSticky">
+        {{form(FilterForm)}}
+    </div>
+    <div class="col-lg-9">
+        {% for Product in AllProducts %}
+            <div class="mb-2 position-relative {{ Product.status ? '' :'UnvisibaleProduct'}}">
+                {{dump(Product)}}
+                <img style="width: 100px" src="{{ asset('uploads/ProdSingelImg/' ~ Product.ProdImgView) }}" >
+                <button type="button" class="btn btn-warning"><a href="{{path('app_mod_products',{'slug':Product.ProdSlug,'id':Product.id})}}">Modify</a></button>
+                <button type="button" class="btn btn-danger"><a href="{{path('app_del_products',{'slug':Product.ProdSlug,'id':Product.id})}}">Delete</a></button>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+   
+
+
+</div>
+
+{% for SubCat in saif %}
+    <div class="SubCategoryJsonFilter d-none" data-subcategory="{{ SubCat.MyToString }}"></div>
+{% endfor %}
+
+{% endblock %}

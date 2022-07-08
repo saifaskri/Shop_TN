@@ -1,7 +1,6 @@
 <?php
 
 namespace App\Form;
-
 use App\Entity\UserShop;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
@@ -34,6 +33,7 @@ class AddNewShopType extends AbstractType
                     ]),
                 ],
             ])
+            
             ->add('Done',SubmitType::class,[
              'attr'=>[
                 'class'=>'btn btn-success',

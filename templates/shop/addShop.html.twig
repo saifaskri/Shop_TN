@@ -13,5 +13,6 @@
     {{form_start(form)}}
         <input type="hidden" name="tokenShopAdd" value="{{ csrf_token('AddShopName') }}"/>
     {{form_end(form)}}
+    <p>-<a href="{{path('Bought_Code')}}">Do You Have A Code</a></p>
 </div>
 {% endblock %}
