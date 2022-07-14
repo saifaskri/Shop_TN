@@ -9,16 +9,17 @@
         <link rel="stylesheet" href="{{asset('CSS/Main.css')}}" >
     </head>
     <body>
-                {% if app.user and not app.user.EmailVerified  %}
-                    <div class="overlay"></div>    
-                    <div class="container Verify-Email-PopUp">
-                        <div class="alert alert-danger text-center mt-5">You Must Verify Your Email</div>
-                    </div>
-                {%endif%}
-                
-                {% if block("NoNavbar") is not defined %}
-            {% include('Componantes/Navbar.html.twig') %}
+            {% if app.user and not app.user.EmailVerified  %}
+                <div class="overlay"></div>    
+                <div class="container Verify-Email-PopUp">
+                    <div class="alert alert-danger text-center mt-5">You Must Verify Your Email</div>
+                </div>
             {% endif %}
+            
+            {% if block("NoNavbar") is not defined %}
+                {% include('Componantes/Navbar.html.twig') %}
+            {% endif %}
+            
             {% block body %}{% endblock %}
             {% if block("NoFooter") is not defined %}
                 {% include('Componantes/Footer.html.twig') %}
@@ -30,7 +31,6 @@
             <script src="{{asset('js/main.js')}}"></script>
             {% block javascripts %}{% endblock %}      
             
-
   
     </body>
 </html>

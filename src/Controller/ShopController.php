@@ -213,7 +213,7 @@ class ShopController extends AbstractController
         if(count($request->request)!=0){
             $submittedToken = $request->request->get('tokenSellShop');
             if (! $this->isCsrfTokenValid('SellShopName', $submittedToken)) {
-                $this->addFlash('SellShop', 'Can not Delete Your Shop because Of Secuirity Causes');
+                $this->addFlash('SellShop', 'Can not Sell Your Shop because Of Secuirity Causes');
             }
             $plainPwd = $request->request->get('PlainPassword');
             //check Password

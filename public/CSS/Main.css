@@ -33,3 +33,5 @@ button a {
     text-decoration: none;
     color: white;
 }
+
+nav .myNoArrow::after {display: none;}

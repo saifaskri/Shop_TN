@@ -64,6 +64,7 @@ class HomeController extends AbstractController
         ]);
     }
 
+    
     #[Route('/shop-view/{ShopName}', name: 'view-shop-by-name')]
     public function ShopView($ShopName): Response
     {

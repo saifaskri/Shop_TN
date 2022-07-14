@@ -1,61 +1,106 @@
-
-    <nav class="navbar navbar-expand-sm navbar-dark p-2 bg-dark mb-5">
-        <a class="navbar-brand" href="#">Logo</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
+<nav style="height:50px" class="navbar navbar-expand-lg navbar-dark bg-dark mb-5">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="{{path('app_home')}}">LOGO</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
         </button>
-        <div class="collapse navbar-collapse justify-content-between " id="navbarSupportedContent">
-            <div class=" " >
-                <ul class="navbar-nav mr-auto">
-                    <li class="nav-item active">
-                        <a class="nav-link" href="{{path('app_home')}}">Home</a>
-                    </li>
-                    {% if is_granted('ROLE_USER') %}
-                        <li class="nav-item active">
-                            <a class="nav-link" href="{{path('app_products')}}">Products</a>
-                        </li>
-                         <li class="nav-item active">
-                            <a class="nav-link" href="{{path('app_add_products')}}">Add Product</a>
-                        </li>
-                    {% endif %}
-                    {% if is_granted('ROLE_SUPER_ADMIN') %}
-                        <li class="nav-item active">
-                            <a class="nav-link" href="{{path('admin')}}">Dashbord</a>
-                        </li>
-                    {% endif %}
-                </ul>
-            </div>
-            <div class="">
-                <ul class="navbar-nav mr-auto ">
-                    {% if is_granted('IS_AUTHENTICATED_FULLY') -%}
-                        {% if app.user.UserShop is null -%}
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ path('app_add_shop') }}">Make Shop</a>
-                            </li>
-                        {% else %}  
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ path('app_index_shop') }}">My Shop</a>
-                            </li>  
-                        {%endif%}
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ path('app_logout') }}">Logout</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" >{{ app.user.firstname }} {{ app.user.lastname }}</a>
-                        </li>
-                        <li class="nav-item">
-                            <img style="width: 25px" src="{{ asset('uploads/ProfilePhoto/' ~ app.user.UserProfilePhoto) }}" alt="Foto Profile" srcset="">
-                        </li>
-                    {% else %}
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ path('app_login') }}">Sign In</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ path('app_register') }}">Sign Up</a>
-                        </li>
-                    {%- endif %}
-                </ul>
-            </div>
-        </div>
-    </nav>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link active" href="{{path('app_home')}}">Home</a>
+                </li>
+                {% if is_granted('IS_AUTHENTICATED_FULLY') -%}
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Shop
+                        </a>
+                        <ul class="dropdown-menu " aria-labelledby="navbarDropdown">
+                                {% if app.user.getUserShop  is null %}
+                                    <li>
+                                        <a class="dropdown-item" href="{{ path('app_add_shop') }}">Make Shop</a>
+                                    </li>
+                                {% else %}  
+                                    <li>
+                                        <a class="dropdown-item" style="color:#cd1616" href="{{ path('app_index_shop') }}">{{app.user.getUserShop.getShopName}}</a>
+                                    </li>
+                                    <li><hr class="dropdown-divider"></li>
+                                    {% if app.user.getUserShop .status %}
+                                            <li><a class="dropdown-item" href="{{path('app_activation_shop')}}">Shop Desactivation</a></li>
+                                    {% else %}
+                                            <li><a class="dropdown-item" href="{{path('app_activation_shop')}}">Shop Activation</a></li>
+                                    {% endif %}
 
+                                    {% if app.user.getUserShop .getSellingId is not null %}
+                                            <li><a class="dropdown-item" href="{{path('app_sell_my_shop')}}">Cancel Selling</a></li>                                
+                                    {% else %}
+                                            <li><a class="dropdown-item" href="{{path('app_sell_my_shop')}}">Shop Selling</a></li>
+                                    {% endif %}
+                                    <li><a class="dropdown-item" style="color:red" href="{{path('app_shop_delete')}}">Delete Shop</a></li>
+                                {% endif %}
+                        </ul>
+                    </li>
+                {%- endif %}
+                {% if is_granted('IS_AUTHENTICATED_FULLY') -%}
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Products
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                {% if app.user.getUserShop  is null %}
+                                    <li>
+                                        <a class="dropdown-item" href="{{ path('app_add_shop') }}">Make Shop First</a>
+                                    </li>
+                                {% else %}  
+                                    <li>
+                                        <a class="dropdown-item" href="{{ path('app_products') }}">View Products</a>
+                                    </li>
+                                    <li>
+                                        <a class="dropdown-item" href="{{ path('app_add_products') }}">Add Product</a>
+                                    </li>
+                                {% endif %}
+                        </ul>
+                    </li>
+                {%- endif %}
+                {% if is_granted('ROLE_SUPER_ADMIN') %}
+                    <li class="nav-item active">
+                        <a class="nav-link" href="{{path('admin')}}">Dashbord</a>
+                    </li>
+                {% endif %}
+                {# <li class="nav-item">
+                    <a class="nav-link" href="#">Link</a>
+                </li> #}
+
+
+
+            </ul>
+            <ul class="navbar-nav mr-auto ">
+                {% if is_granted('IS_AUTHENTICATED_FULLY') -%}
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle myNoArrow" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                           <div class="m-0 p-0" style="width:40px; height:40px; border-radius:50%;">
+                                <img style="width:100%; height:100% ;border-radius:50%" src="{{ asset('uploads/ProfilePhoto/' ~ app.user.UserProfilePhoto) }}" alt="Profile Img" srcset="">
+                           </div>
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end">
+                            <li style="cursor:pointer" class="d-flex dropdown-item pt-0 pb-0 justify-items-center align-items-center ps-2">
+                                <img style="width:100px; height:50px ;border-radius:50%" src="{{ asset('uploads/ProfilePhoto/' ~ app.user.UserProfilePhoto) }}" alt="Profile Img" srcset="">
+                                <a class="dropdown-item ">{{ app.user.firstname }} {{ app.user.lastname }}</a>
+                            </li>
+                            <li><hr class="dropdown-divider"></li>
+                            <a class="dropdown-item" href="#">Account Settings</a>
+                            <a class="dropdown-item" href="{{ path('app_logout') }}">Logout</a>
+                        </ul>    
+                    </li>
+                {% else %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ path('app_login') }}">Sign In</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ path('app_register') }}">Sign Up</a>
+                    </li>
+                {%- endif %}
+            </ul>
+        </div>
+    </div>
+</nav>
+                       
