@@ -47,7 +47,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(type: 'boolean')]
     private $Activation;
 
-    #[ORM\Column(type: 'date')]
+    #[ORM\Column(type: 'date', nullable: true)]
     private $BirthDay;
 
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
@@ -67,6 +67,21 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
     private $EmailMsgChecker;
+
+    #[ORM\Column(type: 'string', length: 255, nullable: true)]
+    private $address;
+
+    #[ORM\Column(type: 'json', nullable: true)]
+    private $socialLinks = [];
+
+    #[ORM\Column(type: 'string', length: 255, nullable: true)]
+    private $Job;
+
+    #[ORM\Column(type: 'string', length: 255, nullable: true)]
+    private $jobbingBei;
+
+    #[ORM\Column(type: 'text', nullable: true)]
+    private $Bio;
 
     public function __construct()
     {
@@ -313,6 +328,66 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setEmailMsgChecker(?string $EmailMsgChecker): self
     {
         $this->EmailMsgChecker = $EmailMsgChecker;
+
+        return $this;
+    }
+
+    public function getAddress(): ?string
+    {
+        return $this->address;
+    }
+
+    public function setAddress(?string $address): self
+    {
+        $this->address = $address;
+
+        return $this;
+    }
+
+    public function getSocialLinks(): ?array
+    {
+        return $this->socialLinks;
+    }
+
+    public function setSocialLinks(?array $socialLinks): self
+    {
+        $this->socialLinks = $socialLinks;
+
+        return $this;
+    }
+
+    public function getJob(): ?string
+    {
+        return $this->Job;
+    }
+
+    public function setJob(?string $Job): self
+    {
+        $this->Job = $Job;
+
+        return $this;
+    }
+
+    public function getJobbingBei(): ?string
+    {
+        return $this->jobbingBei;
+    }
+
+    public function setJobbingBei(?string $jobbingBei): self
+    {
+        $this->jobbingBei = $jobbingBei;
+
+        return $this;
+    }
+
+    public function getBio(): ?string
+    {
+        return $this->Bio;
+    }
+
+    public function setBio(?string $Bio): self
+    {
+        $this->Bio = $Bio;
 
         return $this;
     }

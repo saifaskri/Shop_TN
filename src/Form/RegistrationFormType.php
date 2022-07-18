@@ -46,6 +46,7 @@ class RegistrationFormType extends AbstractType
             ])
             ->add('BirthDay',BirthdayType::class,[
                 'required'   => true,
+
             ])
             ->add('ProfilePhoto', FileType::class, [
                 'label' => 'Profile Photo',
@@ -56,14 +57,14 @@ class RegistrationFormType extends AbstractType
                 // in the associated entity, so you can use the PHP constraint classes
                 'constraints' => [
                     new File([
-                        'maxSize' => '5120k',
-                        'maxSizeMessage' => 'Size Too Large Max 5MB',
-                        'mimeTypes' => [
-                            'image/jpeg',
-                            'application/png',
-                            'application/x-png',
-                        ],
-                        'mimeTypesMessage' => 'Please upload An Image',
+                        'maxSize' => '10240k',
+                        'maxSizeMessage' => 'Size Too Large Max 10MB',
+                        // 'mimeTypes' => [
+                        //     'image/jpeg',
+                        //     'application/png',
+                        //     'application/x-png',
+                        // ],
+                        // 'mimeTypesMessage' => 'Please upload An Image',
                     ])
                 ],
             ])

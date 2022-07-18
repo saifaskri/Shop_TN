@@ -4,7 +4,11 @@
 {% block body %}
     <div class="container col-8 mt-2 MyRegister">
         <h1>Register</h1>
-        
+         {% for message in app.flashes('Registry') %}
+            <div class="alert alert-danger text-center">
+                {{ message }}
+            </div>
+        {% endfor %}
             {{ form_start(registrationForm) }}
             <div class="row ">
                 <div class="col-4">

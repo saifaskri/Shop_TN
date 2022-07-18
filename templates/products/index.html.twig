@@ -21,13 +21,12 @@
         {{form(FilterForm)}}
     </div>
     <div class="col-lg-9">
-            <div class="row border border-3">
+            <div class="row">
                 {% for Product in AllProducts %}
-
                         <div class="col-12 col-md-6 col-lg-4">
                                 <div class="Admin-product-card">
                                 <div class="HeadCard-Admin-product-card">
-                                    <img src="{{ asset('uploads/ProdSingelImg/' ~ Product.ProdImgView) }}" alt="Product" style="width:100%">
+                                    <img style="object-fit:cover;" src="{{ asset('uploads/ProdSingelImg/' ~ Product.ProdImgView) }}" alt="Product" style="width:100%">
                                 </div>
                                 <div class=" p-2 BodyCard-Admin-product-card position-relative {{ Product.status ? '' :'UnvisibaleProduct'}} ">
                                     <h4 class="titel" ><b>{{Product.ProdName}}</b></h4>

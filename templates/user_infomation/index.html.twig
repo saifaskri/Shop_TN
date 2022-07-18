@@ -1,0 +1,196 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}User Info{% endblock %}
+{% block stylesheets %}<link rel="stylesheet" href="{{asset('css/UserInfo.css')}}" >{% endblock %}
+{% block body %}
+
+<div class="container">
+  <div class="main-body">
+    <div class="row gutters-sm ">
+
+        <div class="col-md-4">
+          <div class="card">
+						<div class="card-body">
+							<div class="d-flex flex-column align-items-center text-center">
+                  {% if app.user.UserProfilePhoto %}
+                      {% set image = app.user.UserProfilePhoto %}
+                  {% else %}
+                      {% set image = 'NoUser.jpg' %}
+                  {% endif %}
+                <img id="UserViewImg" style="object-fit:cover" src="{{ asset('uploads/ProfilePhoto/' ~ image) }}" alt="User Img" class="rounded-circle" height="150" width="150">
+								<div class="mt-3">
+                  <h4>{{userInfo.firstname}} {{userInfo.lastname}}</h4>
+									<p class="text-secondary mb-1">{% if userInfo.Job is not empty %}{{ userInfo.Job }}{% else %}No Job Added{% endif %}</p>
+									<p class="text-muted font-size-sm">{% if userInfo.Jobbingbei is not empty %}{{ userInfo.Jobbingbei }}{% else %}No Wrok Place Added{% endif %}</p>
+									{# <button class="btn btn-primary">Follow</button>
+									<button class="btn btn-outline-primary">Message</button> #}
+								</div>
+							</div>
+							<hr class="my-4">
+							<ul class="list-group list-group-flush">
+								<li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
+									<h6 class="mb-0 MyNoWrap"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-globe me-2 icon-inline"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>Website</h6>
+									<span class="text-secondary">{% if userInfo.socialLinks[0]["Website"] is not empty %}<a target="_blank" href='{{ userInfo.socialLinks[0]["Website"] }}'>Viste</a>{% else %}Unsetted{% endif %}</span>
+								</li>
+								<li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
+									<h6 class="mb-0 MyNoWrap"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-github me-2 icon-inline"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>Github</h6>
+									<span class="text-secondary">{% if userInfo.socialLinks[0]["Github"] is not empty %}<a target="_blank" href='{{ userInfo.socialLinks[0]["Github"] }}'>Viste</a>{% else %}Unsetted{% endif %}</span>
+								</li>
+								<li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
+									<h6 class="mb-0 MyNoWrap"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-twitter me-2 icon-inline text-info"><path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"></path></svg>Twitter</h6>
+									<span class="text-secondary">{% if userInfo.socialLinks[0]["twitter"] is not empty %}<a target="_blank" href='{{ userInfo.socialLinks[0]["twitter"] }}'>Viste</a>{% else %}Unsetted{% endif %}</span>
+								</li>
+								<li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
+									<h6 class="mb-0 MyNoWrap"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-instagram me-2 icon-inline text-danger"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>Instagram</h6>
+									<span class="text-secondary">{% if userInfo.socialLinks[0]["Instagram"] is not empty %}<a target="_blank" href='{{ userInfo.socialLinks[0]["Instagram"] }}'>Viste</a>{% else %}Unsetted{% endif %}</span>
+								</li>
+								<li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
+									<h6 class="mb-0 MyNoWrap"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-facebook me-2 icon-inline text-primary"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path></svg>Facebook</h6>
+									<span class="text-secondary">{% if userInfo.socialLinks[0]["Facebook"] is not empty %}<a target="_blank" href='{{ userInfo.socialLinks[0]["Facebook"] }}'>Viste</a>{% else %}Unsetted{% endif %}</spa
+								</li>
+							</ul>
+						</div>
+					</div>
+        </div>
+        <div class="col-md-8">
+          <div class="card">
+            <div class="card-body">
+              <div class="row">
+                <div class="col-sm-3">
+                  <h6 class="mb-0">Full Name</h6>
+                </div>
+                <div class="col-sm-9 text-secondary">
+                  {{userInfo.firstname}} {{userInfo.lastname}}
+                </div>
+              </div>
+              <hr>
+              <div class="row">
+                <div class="col-sm-3">
+                  <h6 class="mb-0">Gender</h6>
+                </div>
+                <div class="col-sm-9 text-secondary">
+                  {{userInfo.gender}}
+                </div>
+              </div>
+              <hr>
+              <div class="row">
+                <div class="col-sm-3">
+                  <h6 class="mb-0">Email</h6>
+                </div>
+                <div class="col-sm-9 text-secondary">
+                  {% if userInfo.email  %}
+                   {{userInfo.email}}
+                  {% else %}
+                    Unsetted
+                  {% endif %}
+                </div>
+              </div>
+              <hr>
+              <div class="row">
+                <div class="col-sm-3">
+                  <h6 class="mb-0">Phone</h6>
+                </div>
+                <div class="col-sm-9 text-secondary">
+                  {% if userInfo.tel  %}
+                   {{userInfo.tel}}
+                  {% else %}
+                    Unsetted
+                  {% endif %}
+                </div>
+              </div>
+              <hr>
+              <div class="row">
+                <div class="col-sm-3">
+                  <h6 class="mb-0">BirthDay</h6>
+                </div>
+                <div class="col-sm-9 text-secondary">
+                {% if userInfo.BirthDay  %}
+                  {{userInfo.BirthDay|date("d/m/Y")}}
+                  {% else %}
+                    Unsetted
+                  {% endif %}
+                </div>
+              </div>
+              <hr>
+              <div class="row">
+                <div class="col-sm-3">
+                  <h6 class="mb-0">Address</h6>
+                </div>
+                <div class="col-sm-9 text-secondary">
+                  {% if userInfo.Address  %}
+                    {{userInfo.Address}}
+                  {% else %}
+                    Unsetted
+                  {% endif %}                
+                </div>
+              </div>
+              <hr>
+              <div class="row">
+                <div class="col-sm-3">
+                  <h6 class="mb-0">Bio</h6>
+                </div>
+                <div class="col-sm-9 text-secondary">
+                  {% if userInfo.Bio  %}
+                    {{userInfo.Bio}}
+                  {% else %}
+                    Unsetted
+                  {% endif %}                
+                </div>
+              </div>
+              <hr>
+              <div class="row">
+                <div class="col-sm-12">
+                  <a class="btn btn-info "  href="{{path('app_user_modify_userinfo')}}">Edit</a>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+        </div>
+    </div>
+   
+
+  </div>
+
+</div>
+
+
+  <!-- The Modal -->
+<div id="myModal" class="modal">
+  <span class="close">&times;</span>
+  <img class="modal-content"id="img01">
+  <div id="caption"></div>
+</div>
+
+
+
+
+{% endblock %}
+
+{% block javascripts %}
+    <script>  
+
+    // Get the modal
+    var modal = document.getElementById("myModal");
+
+    // Get the image and insert it inside the modal - use its "alt" text as a caption
+    var img = document.getElementById("UserViewImg");
+    var modalImg = document.getElementById("img01");
+    var captionText = document.getElementById("caption");
+
+    img.onclick = function(){
+    modal.style.display = "block";
+    modalImg.src = this.src;
+    captionText.innerHTML = this.alt;
+    }
+
+    // Get the <span> element that closes the modal
+    var span = document.getElementsByClassName("close")[0];
+
+    // When the user clicks on <span> (x), close the modal
+    span.onclick = function() { 
+    modal.style.display = "none";
+    }
+
+</script>
+{% endblock %}      
